@@ -45,10 +45,16 @@ export default function Footer() {
           <motion.div variants={itemVariants}>
             <h3 className="text-lg font-bold text-purple-400 mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
-              {['Home', 'Experience', 'Achievements', 'Skills', 'Education'].map((link) => (
+              {[
+                ['Home', 'hero'],
+                ['Experience', 'experience'],
+                ['Achievements', 'achievements'],
+                ['Skills', 'skills'],
+                ['Education', 'education'],
+              ].map(([link, sectionId]) => (
                 <li key={link}>
                   <a
-                    href={`#${link.toLowerCase()}`}
+                    href={`#${sectionId}`}
                     className="text-slate-400 hover:text-cyan-300 transition-colors"
                   >
                     {link}

@@ -20,11 +20,12 @@ const navLinks: NavLink[] = [
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
-  const [scrollY, setScrollY] = useState(0)
+  const [scrollProgress, setScrollProgress] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY)
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight
+      setScrollProgress(scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0)
 
       // Update active section
       const sections = ['hero', 'experience', 'achievements', 'skills', 'education']
@@ -40,6 +41,7 @@ export default function Navigation() {
     }
 
     window.addEventListener('scroll', handleScroll)
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -115,7 +117,7 @@ export default function Navigation() {
       <motion.div
         className="fixed top-0 left-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-400 z-50"
         style={{
-          width: `${(scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100}%`,
+          width: `${scrollProgress}%`,
         }}
       />
     </>
